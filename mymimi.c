@@ -1,89 +1,99 @@
 #include "simpleshell.h"
+
 /**
- * wordssep - functions that seperates
+ * destringsplit - function that performs splitting
  * @info: argument
- * Return: j
+ * Return: 1
  */
-int wordssep(info_t *info)
+
+int destringsplit(info_t *info)
 {
-int j;
-(*info).argv = copy_stkk((*info).arg, " \t");
-if (!(*info).argv)
-{
-(*info).argv = malloc(sizeof(char *) * 2);
-if ((*info).argv)
-{
-(*info).argv[0] = stringduplicate((*info).arg);
-(*info).argv[1] = NULL;
+	int i;
+	(*info).argv = mimic_strtokc((*info).arg, " \t");
+		if (!(*info).argv)
+		{
+			(*info).argv = malloc(sizeof(char *) * 2);
+			if ((*info).argv)
+			{
+				(*info).argv[0] = stringduplicate((*info).arg);
+				(*info).argv[1] = NULL;
+
+			}
+		}
+		for (i = 0; (*info).argv && (*info).argv[i]; i++)
+			;
+		(*info).argc = i;
+		return (i);
 }
-}
-for (j = 0; (*info).argv && (*info).argv[j]; j++)
-;
-(*info).argc = j;
-return (j);
-}
+
 /**
- * copy_stkk - copies the behaviour of a library
- * @abc: strings
- * @del: argument
- * Return: solution
+ * mimic_strtokc - function that copies another library
+ * @inputString: argument
+ * @delimiters: argument
+ * Return: null
  */
-char **copy_stkk(char *abc, char *del)
+
+char **mimic_strtokc(char *inputString, char *delimiters)
 {
-int s1, s2, s3, s4, nonWrds = 0;
-char **solution;
-int j;
-if (abc == NULL || abc[0] == 0)
-return (NULL);
-if (!del)
-del = " ";
-for (s1 = 0; abc[s1] != '\0'; s1++)
-if (!shl_dlm(abc[s1], del)
-&& (shl_dlm(abc[s1 + 1], del)
-|| !abc[s1 + 1]))
-nonWrds++;
-if (nonWrds == 0)
-return (NULL);
-solution = malloc((1 + nonWrds) *sizeof(char *));
-if (!solution)
-return (NULL);
-for (s2 = 0, s3 = 0; s3 < nonWrds; s3++)
-{
-while (shl_dlm(abc[s2], del))
-s2++;
-s4 = 0;
-while (!shl_dlm(abc[s2 + s4], del)
-&& abc[s2 + s4])
-s4++;
-solution[s3] = malloc((s4 + 1) * sizeof(char));
-if (!solution[s3])
-{
-for (s4 = 0; s4 < s3; s4++)
-free(solution[s4]);
-free(solution);
-return (NULL);
+	int index1, index2, index3, index4, numWords = 0;
+	char **result;
+	int i;
+
+	if (inputString == NULL || inputString[0] == 0)
+		return (NULL);
+	if (!delimiters)
+		delimiters = " ";
+	for (index1 = 0; inputString[index1] != '\0'; index1++)
+		if (!shel_lim(inputString[index1], delimiters)
+				&& (shel_lim(inputString[index1 + 1], delimiters)
+					|| !inputString[index1 + 1]))
+		numWords++;
+	if (numWords == 0)
+		return (NULL);
+	result = malloc((1 + numWords) * sizeof(char *));
+	if (!result)
+		return (NULL);
+	for (index2 = 0, index3 = 0; index3 < numWords; index3++)
+	{
+		while (shel_lim(inputString[index2], delimiters))
+		index2++;
+		index4 = 0;
+		while (!shel_lim(inputString[index2 + index4], delimiters)
+				&& inputString[index2 + index4])
+			index4++;
+		result[index3] = malloc((index4 + 1) * sizeof(char));
+	if (!result[index3])
+	{
+		for (index4 = 0; index4 < index3; index4++)
+			free(result[index4]);
+		free(result);
+		return (NULL);
+	}
+	for (i = 0; i < index4; i++)
+		result[index3][i] = inputString[index2++];
+	result[index3][index4] = 0;
+	}
+	result[index3] = NULL;
+	return (result);
 }
-for (j = 0; j < s4; j++)
-solution[s3][j] = abc[s2++];
-solution[s3][s4] = 0;
-}
-solution[s3] = NULL;
-return (solution);
-}
+
 /**
- * shl_dlm - function that checks for delimeter
- * @c: character
- * @del: argument
+ * shel_lim - a function that limits the shell
+ * @c: argument
+ * @delim: argument
  * Return: 0
  */
-int shl_dlm(char c, char *del)
+
+int shel_lim(char c, char *delim)
 {
-int j = 0;
-while (del[j] != '\0')
-{
-if (del[j] == c)
-return (1);
-j++;
+	int i = 0;
+
+	while (delim[i] != '\0')
+	{
+	if (delim[i] == c)
+		return (1);
+	i++;
+	}
+	return (0);
 }
-return (0);
-}
+

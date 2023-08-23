@@ -16,13 +16,14 @@
 #define OUR_LINE_LENGTH 10000
 #define OUR_ALIASES 100
 /**
- * struct deowner - describes everything
- * @explainer: operations
- * @show_flag: shows flag
- * @shinput: copies data
- * @argv: argument
+ * struct owner - name describing structure
+ * @explainer: opens and closes a file
+ * @show_flag: line input reader
+ * @shinput: mimics read data
+ * @argv: argument vector count values
  */
-typedef struct deowner
+
+typedef struct owner
 {
 int explainer;
 int show_flag;
@@ -30,108 +31,109 @@ char *shinput;
 char **argv;
 } ownership;
 /**
- * struct movedline - copies another function
- * @explainer: operations
- * @readerloc: input
- * @indes: argument
- * @lens: length
+ * struct curvedline - structure that mimics get line function
+ * @explainer: opens and closes a file
+ * @readerloc: input taken buffer
+ * @indes: input that halted the buffer
+ * @lens: line length of the function
  */
-typedef struct movedline
+typedef struct curvedline
 {
-int explainer;
-char readerloc[OUR_LINE_LENGTH];
-int indes;
-int lens;
+	int explainer;
+	char readerloc[OUR_LINE_LENGTH];
+	int indes;
+	int lens;
 } bline;
 /**
- * struct myinfohandler - input
- * @path: argument
- * @arg: argumment
- * @show: show
- * @argc: arguments
- * @argv: argument
- * @pipefd: argument
- * @report: condition
- * @lrf_fd : argument
- * @shell: shell
+ * struct infohandler - handles lines input
+ * @path: the value of foremost argument
+ * @arg: the totlal argumment
+ * @show: counted line
+ * @argc: the total argument count
+ * @argv: argument vector count in the func
+ * @pipefd: pipe file descriptor
+ * @report: executes condition in the shell
+ * @lrf_fd : left pipe reduction in shell
+ * @shell: counts stuff in shell
  */
-typedef struct myinfohandler
+typedef struct infohandler
 {
-char *path;
-char *arg;
-int argc;
-int show;
-char **argv;
-int pipefd[2];
-int report;
-int lrf_fd;
-char *shell;
+	char *path;
+	char *arg;
+	int argc;
+	int show;
+	char **argv;
+	int pipefd[2];
+	int report;
+	int lrf_fd;
+	char *shell;
 } info_t;
 /**
- * struct deboard - structure build
- * @type: argument
- * @func: argument
+ * struct board - name of structure
+ * @type: pointer to the types in struct
+ * @func: pointer to the func in the struct
  */
-typedef struct deboard
+typedef struct board
 {
-char *type;
-int (*func)(info_t *);
+	char *type;
+	int (*func)(info_t *);
 } builtin_board;
 /**
- * struct enters_alias - stucture build
- * @alias: argument
- * @force: argument
+ * struct enter_alias - name of the structure
+ * @alias: handles the alias in the shell
+ * @force: force in the function
  */
-typedef struct enters_alias
+typedef struct enter_alias
 {
-char alias[256];
-char force[256];
+	char alias[256];
+	char force[256];
 } alias_enter;
-extern char **environ;
-ssize_t shll_shuff(int explanation, char *shuffler, ssize_t length);
-ssize_t skim_shll(int explanation, char **shuffler);
-off_t bring_out(int explanation, off_t offset, int hence);
-int copy_bring(FILE *stream);
-int myshell_exit(info_t *info);
-int mycomp_env(info_t *info);
-int comeset_env(info_t *info);
-int alreadset_env(info_t *info);
-int shll_ali(info_t *info);
-int myshell_bullt(info_t *info);
-int searchinbuilt_shll(info_t *info);
-char **willdoenv_shll(void);
-void dofunction_s(info_t *info);
-void rewind_val(bline *reader, int explain);
-ssize_t readall(int explain, bline *reader);
-int chagefile(bline *reader, ssize_t *length, char **line);
-ssize_t pthandler_flo(char **linepotr, size_t *n, int explain);
-int myloopy(int explainer, int argc, char **argv, char *line,
+ssize_t mybufferfile_handler(char **lineptr, size_t *n, int explainer);
+ssize_t shel_bunffile(int explainer, char *buffer, ssize_t max_length);
+ssize_t readers_shel(int explainer, char **buffer);
+off_t myflush_file(int explainer, off_t offset, int whence);
+int mimc_flush(FILE *stream);
+int mystringlength(const char *str);
+int astringcompare(char *str1, char *str2);
+char *findcharacters(char *str, char *character);
+char *appendstrings(char *dest, const char *src);
+char *copystrings(char *dests, char *source);
+char *stringduplicates(char *str);
+void ishell_printer(void);
+void executeshell_fd(info_t *info);
+void aafree(info_t *info, int exit_status);
+void e_constructer(info_t *info, const char *message);
+char **allenv_dshell(void);
+int wefindbuiltin_shell(info_t *info);
+int myexitbuiltin_shell(info_t *info);
+int mycustom_env(info_t *info);
+int anoldsetenv_shell(info_t *info);
+int anoldunsetenv_shell(info_t *info);
+int ashell_aliashandler(info_t *info);
+int destringsplit(info_t *info);
+char **mimic_strtokc(char *inputString, char *delimiters);
+int shel_lim(char c, char *delim);
+void shellexecute(info_t *info);
+char *seeshellpath(info_t *info, char *pathstr, char *cmd);
+int shellloopmain(int explainer, int argc, char **argv, char *line,
 size_t line_length, ownership file, info_t info,
 int built_in_ret);
-void copy_shuff(ownership file, char *line, size_t length);
-void start_bill(info_t *info, int argc, char **argv, char *line);
-void shll_move(info_t *info, char *line);
-int wordlong(const char *str);
-int wordtoword(char *str1, char *str2);
-char *searchlett(char *str, char *character);
-char *sendlett(char *dest, const char *src);
-char *duplicateword(char *dests, char *sources);
-int wordssep(info_t *info);
-char **copy_stkk(char *abc, char *del);
-int shl_dlm(char c, char *del);
-void error_fan(info_t *info, const char *message);
-char *intchanger(long int num, int base, int flags);
-void myshllexe(info_t *info);
-char *seeshllpth(info_t *info, char *pathstr, char *cmd);
-int cmdfind(info_t *info, char *path);
-char *plty_stings(char *placestr, int beg, int end);
-char *digshll_ev(const char *var);
-void ctrlCno(__attribute__((unused))int thisway);
-void cust_print(void);
-void _myprint(char *str);
-int wordandwrd_o(const char *str1, const char *str2, size_t n);
-char *wordsconding(char *str);
-void myfile_send(char c, FILE *stream);
-void fremmm(info_t *info, int out_stats);
-char *fillmeme_shll(char *a, char b, unsigned int n);
+char *numbconverter(long int num, int base, int flags);
+void _printers(char *str);
+int stringcompare_num(const char *str1, const char *str2, size_t n);
+char *igetshell_env(const char *variable);
+void file_writers(char c, FILE *stream);
+int ashell_builtincd(info_t *info);
+int commandsearches(info_t *info, char *path);
+char *mul_strings(char *pathstr, int start, int stop);
+extern char **environ;
+void myreset_structure(bline *reader, int explainer);
+ssize_t afilereader(int explainer, bline *reader);
+int afileplacereader(bline *reader, ssize_t *line_length, char **line);
+void amimic_buffile(ownership file, char *line, size_t line_length);
+void init_builtin(info_t *info, int argc, char **argv, char *line);
+void ashell_freedom(info_t *info, char *line);
+char *memfill_shela(char *s, char b, unsigned int n);
+void icontrolC(__attribute__((unused))int thisway);
 #endif
+

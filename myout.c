@@ -1,20 +1,26 @@
 #include "simpleshell.h"
+
 /**
- * _myprint - function that helps prints character
- * @str: printed string
+ * _printers - function that brings out
+ * @str: argument to be printed
  * Return: null
  */
-void _myprint(char *str)
+
+void _printers(char *str)
 {
-int lin;
-if (!str)
-{
-return;
+	int len;
+
+	if (!str)
+	{
+		return;
+	}
+
+	len = 0;
+	while (str[len] != '\0')
+	{
+		len++;
+	}
+
+	write(1, str, len);
 }
-lin = 0;
-while (str[lin] != '\0')
-{
-lin++;
-}
-write(1, str, lin);
-}
+
