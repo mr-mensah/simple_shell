@@ -13,24 +13,24 @@ void shellexecute(info_t *info)
 
 	while (info->arg[r])
 	{
-		place += !shell_lim(info->arg[r], " \t\n") ? 1 : 0;
+		place += !shel_lim(info->arg[r], " \t\n") ? 1 : 0;
 		r++;
 	}
 
-	p = (!place) ? NULL : seeshellpath(info, getshell_env("PATH"), info->argv[0]);
+	p = (!place) ? NULL : seeshellpath(info, igetshell_env("PATH"), info->argv[0]);
 
 	if (p)
 	{
 		info->path = p;
-		executeshell_f(info);
+		executeshell_fd(info);
 	}
 	else
 	{
-	if ((getshell_env("PATH") || info->argv[0][0] == '/')
+	if ((igetshell_env("PATH") || info->argv[0][0] == '/')
 			&& commandsearches(info, info->argv[0]))
-		executeshell_f(info);
+		executeshell_fd(info);
 	else if (*(info->arg) != '\n')
-		e_construct(info, "not found\n");
+		e_constructer(info, "not found\n");
 	}
 }
 
@@ -49,7 +49,7 @@ char *seeshellpath(info_t *info, char *placestr, char *cmd)
 
 	if (!placestr)
 		return (NULL);
-	else if ((stringlength(cmd) > 2) && findcharacter(cmd, "./"))
+	else if ((mystringlength(cmd) > 2) && findcharacters(cmd, "./"))
 	{
 		if (commandsearches(info, cmd))
 			return (cmd);
@@ -64,11 +64,11 @@ char *seeshellpath(info_t *info, char *placestr, char *cmd)
 		{
 			place = mul_strings(placestr, posi, r);
 		if (!*place)
-			appendstring(place, cmd);
+			appendstrings(place, cmd);
 		else
 		{
-			appendstring(place, "/");
-			appendstring(place, cmd);
+			appendstrings(place, "/");
+			appendstrings(place, cmd);
 		}
 		if (commandsearches(info, place))
 			return (place);

@@ -28,16 +28,16 @@ void ishell_printer(void)
 	time(&rawtime);
 	info = localtime(&rawtime);
 	strftime(time_buffer, sizeof(time_buffer), "%Y/%m/%d", info);
-	_printer("$");
-	if (stringcompare(cwd, "/") == 0)
+	_printers("$");
+	if (astringcompare(cwd, "/") == 0)
 	{
-		_printer("$ ");
+		_printers("$ ");
 	}
 	else
 	{
-		_printer(":~");
-		_printer(cwd);
-		_printer("$ ");
+		_printers(":~");
+		_printers(cwd);
+		_printers("$ ");
 	}
 }
 

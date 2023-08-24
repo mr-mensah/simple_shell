@@ -17,11 +17,11 @@ char *igetshell_env(const char *variable)
 		return (NULL);
 	}
 
-	var_length = stringlength(variable);
+	var_length = mystringlength(variable);
 
 	while (*env != NULL)
 	{
-	if (stringcompare_n(variable, *env, var_length) == 0
+	if (stringcompare_num(variable, *env, var_length) == 0
 		&& (*env)[var_length] == '=')
 	{
 		return (&((*env)[var_length + 1]));

@@ -10,18 +10,18 @@ int wefindbuiltin_shell(info_t *info)
 {
 	int i, built_in_ret = -1;
 	builtin_board builtintbl[] = {
-		{"exit", exitbuiltin_shell},
-		{"env", custom_env},
-		{"cd", shell_builtincd},
-		{"setenv", oldsetenv_shell},
-		{"unsetenv", oldunsetenv_shell},
-		{"alias", oldunsetenv_shell},
+		{"exit", myexitbuiltin_shell},
+		{"env", mycustom_env},
+		{"cd", ashell_builtincd},
+		{"setenv", anoldsetenv_shell},
+		{"unsetenv", anoldunsetenv_shell},
+		{"alias", anoldunsetenv_shell},
 		{NULL, NULL}
 	};
 
 	for (i = 0; builtintbl[i].type; i++)
 	{
-		if (stringcompare(info->argv[0], builtintbl[i].type) == 0)
+		if (astringcompare(info->argv[0], builtintbl[i].type) == 0)
 		{
 			built_in_ret = builtintbl[i].func(info);
 			break;

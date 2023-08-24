@@ -108,7 +108,7 @@ int mimc_flush(FILE *stream)
 {
 if (stream == stdout)
 {
-file_writer('\n', stream);
+file_writers('\n', stream);
 return (0);
 }
 else

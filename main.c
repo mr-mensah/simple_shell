@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 
 	file.explainer = descriptor;
 	signal(SIGINT, icontrolC);
-	result = loopshellmain(descriptor, argc, argv, line, line_length,
+	result = shellloopmain(descriptor, argc, argv, line, line_length,
 			file, info, built_in_ret);
 	return (result);
 }
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 void icontrolC(int thisway)
 {
 	(void)thisway;
-	_printer("\n");
-	shell_printer();
+	_printers("\n");
+	ishell_printer();
 }
 

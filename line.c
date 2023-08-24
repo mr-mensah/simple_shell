@@ -10,7 +10,7 @@
 void myreset_structure(bline *reader, int explainer)
 {
 	reader->explainer = 0;
-	memfill_shell(reader->readerloc, 0, sizeof(reader->readerloc));
+	memfill_shela(reader->readerloc, 0, sizeof(reader->readerloc));
 	reader->indes = 0;
 	reader->lens = 0;
 
@@ -40,7 +40,7 @@ ssize_t afilereader(int explainer, bline *reader)
 {
 	ssize_t r;
 
-	r = shell_buffile(explainer, reader->readerloc + reader->lens,
+	r = shel_bunffile(explainer, reader->readerloc + reader->lens,
 		OUR_LINE_LENGTH - reader->lens);
 	if (r < 0)
 	{

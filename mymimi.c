@@ -15,7 +15,7 @@ int destringsplit(info_t *info)
 			(*info).argv = malloc(sizeof(char *) * 2);
 			if ((*info).argv)
 			{
-				(*info).argv[0] = stringduplicate((*info).arg);
+			(*info).argv[0] = stringduplicates((*info).arg);
 				(*info).argv[1] = NULL;
 
 			}

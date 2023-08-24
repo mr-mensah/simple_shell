@@ -16,34 +16,34 @@ return (1);
 }
 if (!info->argv[1])
 {
-dir = getshell_env("HOME");
+dir= igetshell_env("HOME");
 if (!dir)
-chdir_ret = chdir((dir = getshell_env("PWD")) ? dir : "/");
+chdir_ret = chdir((dir= igetshell_env("PWD")) ? dir : "/");
 else
 chdir_ret = chdir(dir);
 }
-else if (stringcompare(info->argv[1], "-") == 0)
+else if (astringcompare(info->argv[1], "-") == 0)
 {
-if (!getshell_env("OLDPWD"))
+if (igetshell_env("OLDPWD"))
 {
-_printer(s);
-_printer("\n");
+_printers(s);
+_printers("\n");
 return (1);
 }
-_printer(getshell_env("OLDPWD"));
-_printer("\n");
-chdir_ret = chdir((dir = getshell_env("OLDPWD")) ? dir : "/");
+_printers(igetshell_env("OLDPWD"));
+_printers("\n");
+chdir_ret = chdir((dir= igetshell_env("OLDPWD")) ? dir : "/");
 }
 else
 chdir_ret = chdir(info->argv[1]);
 if (chdir_ret == -1)
 {
-e_construct(info, "can't cd to ");
-write(2, info->argv[1], stringlength(info->argv[1]));
+e_constructer(info, "can't cd to ");
+write(2, info->argv[1], mystringlength(info->argv[1]));
 write(2, "\n", 2);
 }
 else
-setenv("OLDPWD", getshell_env("PWD"), 1);
+setenv("OLDPWD", igetshell_env("PWD"), 1);
 return (0);
 }
 /**

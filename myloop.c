@@ -25,9 +25,9 @@ int shellloopmain(int explainer, int argc, char **argv, char *line,
 		else
 		{
 			if (isatty(STDIN_FILENO))
-				shell_printer();
+				ishell_printer();
 			fflush(stdout);
-			if (bufferfile_handler(&line, &line_length, 0) == -1)
+		if (mybufferfile_handler(&line, &line_length, 0) == -1)
 			{
 				if (explainer != 0)
 					close(explainer);
@@ -36,13 +36,13 @@ int shellloopmain(int explainer, int argc, char **argv, char *line,
 			init_builtin(&info, argc, argv, line);
 			if (line_length > 0)
 			{
-				built_in_ret = findbuiltin_shell(&info);
+				built_in_ret = wefindbuiltin_shell(&info);
 				if (built_in_ret == -2)
 					break;
 				else if (built_in_ret == -1)
 				{
 					info.path = info.argv[0];
-					shellexec(&info);
+					shellexecute(&info);
 				}
 			}
 		}
@@ -63,7 +63,7 @@ int shellloopmain(int explainer, int argc, char **argv, char *line,
 
 void amimic_buffile(ownership file, char *line, size_t line_length)
 {
-	while (bufferfile_handler(&line, &line_length, file.explainer) != -1)
+while (mybufferfile_handler(&line, &line_length, file.explainer) != -1)
 	{
 		if (line_length > 0)
 		{
@@ -95,10 +95,10 @@ void init_builtin(info_t *info, int argc, char **argv, char *line)
 			info->report = -1;
 			info->lrf_fd = -1;
 			info->argc = argc;
-			info->arg = stringduplicate(line);
+			info->arg = stringduplicates(line);
 			info->argv = NULL;
 			info->shell = argv[0];
-			stringsplit(info);
+			destringsplit(info);
 }
 
 /**

@@ -17,10 +17,10 @@ void e_constructer(info_t *info, const char *message)
 	ssize_t bytes_written;
 
 	show = numbconverter(info->show, 10, 0);
-	message_length = stringlength(message);
-	argv_length = stringlength(info->argv[0]);
-	shell_length = stringlength(info->shell);
-	line_length = stringlength(show);
+	message_length = mystringlength(message);
+	argv_length = mystringlength(info->argv[0]);
+	shell_length = mystringlength(info->shell);
+	line_length = mystringlength(show);
 	error_message = (char *)malloc(message_length
 			+ line_length + argv_length + shell_length + 7);
 	if (info == NULL)
@@ -31,15 +31,15 @@ void e_constructer(info_t *info, const char *message)
 		perror("Error: Memory allocation failed");
 		exit(EXIT_FAILURE);
 	}
-	copystring(error_message, info->shell);
-	appendstring(error_message, ": ");
-	appendstring(error_message, show);
-	appendstring(error_message, ": ");
-	appendstring(error_message, info->argv[0]);
-	appendstring(error_message, ": ");
-	appendstring(error_message, message);
+	copystrings(error_message, info->shell);
+	appendstrings(error_message, ": ");
+	appendstrings(error_message, show);
+	appendstrings(error_message, ": ");
+	appendstrings(error_message, info->argv[0]);
+	appendstrings(error_message, ": ");
+	appendstrings(error_message, message);
 	bytes_written = write(STDERR_FILENO,
-			error_message, stringlength(error_message));
+			error_message, mystringlength(error_message));
 	if (bytes_written == -1)
 	{
 		perror("Error: Write failed");
